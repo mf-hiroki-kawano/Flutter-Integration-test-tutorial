@@ -26,16 +26,16 @@ class MyApp extends StatelessWidget {
   }
 }
 
-class MyHomePage extends StatefulWidget {
+class MyHomePage extends ConsumerStatefulWidget {
   const MyHomePage({super.key, required this.title});
 
   final String title;
 
   @override
-  State<MyHomePage> createState() => _MyHomePageState();
+  ConsumerState<MyHomePage> createState() => _MyHomePageState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class _MyHomePageState extends ConsumerState<MyHomePage> {
   // int counterProvider = 0;
   String enterText = "";
   RegExp exp = RegExp(r'^[0-9]{1,99}$');
@@ -65,23 +65,21 @@ class _MyHomePageState extends State<MyHomePage> {
     final validateResult = _validate(enterText);
     print(enterText);
     print(validateResult);
-    final beNull = validateResult ?? true;
-    print(beNull);
-    if (beNull == true) {
+    if (validateResult == null) {
       print('ステータスtrue');
       setState(() {
-        isValid = true;
+        ref.read(isValid.notifier).state = true;
       });
     } else {
       print('ステータスfalse');
       setState(() {
-        isValid = false;
+        ref.read(isValid.notifier).state = false;
       });
     }
   }
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.title),
@@ -133,11 +131,8 @@ class _MyHomePageState extends State<MyHomePage> {
               )
             ),
             ElevatedButton(
-              onPressed: isValid?(){
-                  setState(() {
-                    // counterProvider = int.parse(enterText);
-                    ref.watch(counterProvider.notifier).state.toInt();
-                  });
+              onPressed: ref.watch(isValid)?(){
+                    ref.watch(counterProvider.notifier).state = int.parse(enterText);
               } : null ,
               child: const Text('入力表示'),
             ),
@@ -145,7 +140,7 @@ class _MyHomePageState extends State<MyHomePage> {
               onPressed: (){
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => NextPage(ref.watch(counterProvider))),
+                  MaterialPageRoute(builder: (context) => NextPage(ref.watch(counterProvider.notifier).state.toInt())),
                 );
               },
               child: Text('これで確定する'),
