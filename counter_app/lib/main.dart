@@ -140,7 +140,7 @@ class _MyHomePageState extends ConsumerState<MyHomePage> {
               onPressed: (){
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => NextPage(ref.watch(counterProvider.notifier).state.toInt())),
+                  MaterialPageRoute(builder: (context) => ResultPage(result: ref.watch(counterProvider.notifier).state.toInt())),
                 );
               },
               child: Text('これで確定する'),

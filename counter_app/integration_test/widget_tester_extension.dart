@@ -7,7 +7,7 @@ import 'package:flutter_test/flutter_test.dart';
 extension WidgetTesterExtension on WidgetTester {
   Future<void> transitionResultPage() async {
     await tap(find.widgetWithText(ElevatedButton, '確定'));
-    await pumpUntil(find.byType(NextPage));
+    await pumpUntil(find.byType(ResultPage));
   }
 
   Future<void> pumpUntil(

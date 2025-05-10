@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 
-// ignore: must_be_immutable
-class NextPage extends StatelessWidget {
-  NextPage(this.result);
-  num result;
+class ResultPage extends StatelessWidget {
+  const ResultPage({required this.result, super.key});
+  final num result;
   @override
   Widget build(BuildContext context) {
     return Scaffold(

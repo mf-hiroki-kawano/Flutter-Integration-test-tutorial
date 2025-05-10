@@ -37,7 +37,7 @@ void main() {
         await tester.pumpWidget(const MyApp());
         await tester.increment();
         await tester.transitionResultPage();
-        expect(find.byType(NextPage), findsOneWidget);
+        expect(find.byType(ResultPage), findsOneWidget);
         expect(find.text('計算結果'), findsOneWidget);
       });
 
