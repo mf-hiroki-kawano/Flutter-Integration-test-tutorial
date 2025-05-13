@@ -1,11 +1,26 @@
-name: GitHub Actions Demo
+name: flutter test
 
 on:
   pull_request:
-    types: [opened, synchronize]
+    branches:
+      - main
 
 jobs:
-  echo_hello_world:
+  test:
     runs-on: ubuntu-latest
+
     steps:
-      - run: echo "hello world!!"
+      - uses: actions/checkout@v3
+
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.29.2'
+
+      - name: Install dependencies
+        run: flutter pub get
+        working-directory: counter_app
+
+      - name: Run specific folder tests
+        run: flutter test
+        working-directory: counter_app/github_actions_test
+
