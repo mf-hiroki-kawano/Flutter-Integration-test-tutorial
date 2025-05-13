@@ -1,8 +1,8 @@
 name: GitHub Actions Demo
 
 on:
-  pull_request：
-    types：[opened,synchronize]
+  pull_request:
+    types: [opened, synchronize]
 
 jobs:
   echo_hello_world:
