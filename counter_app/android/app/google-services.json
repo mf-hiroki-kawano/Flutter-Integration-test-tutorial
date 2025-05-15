@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "205249540009",
+    "project_id": "flutterintegrationtesttutorial",
+    "storage_bucket": "flutterintegrationtesttutorial.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:205249540009:android:3f79e17cc9347169035eb8",
+        "android_client_info": {
+          "package_name": "com.example.counter_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAU99o31zUgfmlCz47szQ57G1Ef0xjirHI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
