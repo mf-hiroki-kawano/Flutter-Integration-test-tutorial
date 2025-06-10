@@ -1,0 +1,51 @@
+name: Flutter Integration Test with Firebase Test Lab
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.19.0' # 使いたいFlutterバージョン
+
+      - name: Install dependencies
+        run: flutter pub get
+
+      - name: Build APK for app
+        run: flutter build apk --debug
+
+      - name: Build instrumentation test APK
+        run: flutter build apk --debug --target integration_test/app_test.dart
+
+      - name: Decode Google Service Account JSON
+        run: |
+          echo "${{ secrets.GOOGLE_CREDENTIALS }}" > ${HOME}/gcloud-key.json
+
+      - name: Setup gcloud
+        uses: google-github-actions/auth@v2
+        with:
+          credentials_json: '${{ secrets.GOOGLE_CREDENTIALS }}'
+
+      - name: Install gcloud components
+        run: |
+          gcloud components update
+          gcloud components install beta
+
+      - name: Run Instrumentation test on Firebase Test Lab
+        run: |
+          gcloud config set project YOUR_PROJECT_ID
+          gcloud firebase test android run \
+            --type instrumentation \
+            --app build/app/outputs/flutter-apk/app-debug.apk \
+            --test build/app/outputs/flutter-apk/app-debug-androidTest.apk \
+            --device model=Pixel2,version=30,locale=en,orientation=portrait
