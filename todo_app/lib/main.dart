@@ -1,15 +1,19 @@
 import 'package:flutter/material.dart';
+import 'todo_detail_page.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-void main() => runApp(MyApp());
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await SharedPreferences.getInstance();
+  runApp(MyApp());
+}
 
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'ToDo App',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
+      theme: ThemeData(primarySwatch: Colors.blue),
       home: TodoListPage(),
     );
   }
@@ -46,15 +50,21 @@ class _TodoListPageState extends State<TodoListPage> {
         icon: Icon(Icons.delete, color: Colors.red),
         onPressed: () => _removeTodoItem(index),
       ),
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => TodoDetailPage(todoText: todoText),
+          ),
+        );
+      },
     );
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('ToDoリスト'),
-      ),
+      appBar: AppBar(title: Text('ToDoリスト')),
       body: Column(
         children: [
           Padding(
@@ -64,9 +74,7 @@ class _TodoListPageState extends State<TodoListPage> {
                 Expanded(
                   child: TextField(
                     controller: _textController,
-                    decoration: InputDecoration(
-                      labelText: 'やることを入力',
-                    ),
+                    decoration: InputDecoration(labelText: 'やることを入力'),
                   ),
                 ),
                 ElevatedButton(
