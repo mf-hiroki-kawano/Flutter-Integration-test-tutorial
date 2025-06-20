@@ -1,35 +1,26 @@
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import 'dart:convert';
+import 'package:todo_app/memo_repository.dart';
 
 class TodoDetailPage extends StatefulWidget {
+  final int taskIndex;
   final String todoText;
+  final MemoRepository memoRepository;
 
-  const TodoDetailPage({Key? key, required this.todoText}) : super(key: key);
+  TodoDetailPage({
+    Key? key,
+    required this.taskIndex,
+    required this.todoText,
+    MemoRepository? memoRepository,
+  }) : memoRepository = memoRepository ?? SharedPreferencesMemoRepository(),
+       super(key: key);
 
   @override
-  _TodoDetailPageState createState() => _TodoDetailPageState();
-}
-
-class Memo {
-  final String text;
-  final DateTime timestamp;
-
-  Memo({required this.text, required this.timestamp});
-
-  Map<String, dynamic> toJson() => {
-    'text': text,
-    'timestamp': timestamp.toIso8601String(),
-  };
-
-  factory Memo.fromJson(Map<String, dynamic> json) =>
-      Memo(text: json['text'], timestamp: DateTime.parse(json['timestamp']));
+  State<TodoDetailPage> createState() => _TodoDetailPageState();
 }
 
 class _TodoDetailPageState extends State<TodoDetailPage> {
   final TextEditingController _memoController = TextEditingController();
   List<Memo> _memos = [];
-  static const String _memoKey = 'todo_memo_';
 
   @override
   void initState() {
@@ -44,30 +35,17 @@ class _TodoDetailPageState extends State<TodoDetailPage> {
   }
 
   Future<void> _loadMemos() async {
-    final prefs = await SharedPreferences.getInstance();
-    final String? memosJson = prefs.getString(_memoKey + widget.todoText);
-    if (memosJson != null) {
-      final List<dynamic> decodedMemos = jsonDecode(memosJson);
-      setState(() {
-        _memos = decodedMemos.map((memo) => Memo.fromJson(memo)).toList()
-          ..sort((a, b) => b.timestamp.compareTo(a.timestamp));
-      });
-    }
+    final memos = await widget.memoRepository.loadMemos(widget.taskIndex);
+    setState(() {
+      _memos = memos..sort((a, b) => b.timestamp.compareTo(a.timestamp));
+    });
   }
 
   Future<void> _saveMemo() async {
     if (_memoController.text.isEmpty) return;
-
     final newMemo = Memo(text: _memoController.text, timestamp: DateTime.now());
-
-    final prefs = await SharedPreferences.getInstance();
     final updatedMemos = [..._memos, newMemo];
-    final memosJson = jsonEncode(
-      updatedMemos.map((memo) => memo.toJson()).toList(),
-    );
-
-    await prefs.setString(_memoKey + widget.todoText, memosJson);
-
+    await widget.memoRepository.saveMemos(widget.taskIndex, updatedMemos);
     setState(() {
       _memos = updatedMemos..sort((a, b) => b.timestamp.compareTo(a.timestamp));
     });
@@ -75,14 +53,8 @@ class _TodoDetailPageState extends State<TodoDetailPage> {
   }
 
   Future<void> _deleteMemo(int index) async {
-    final prefs = await SharedPreferences.getInstance();
     final updatedMemos = List<Memo>.from(_memos)..removeAt(index);
-    final memosJson = jsonEncode(
-      updatedMemos.map((memo) => memo.toJson()).toList(),
-    );
-
-    await prefs.setString(_memoKey + widget.todoText, memosJson);
-
+    await widget.memoRepository.saveMemos(widget.taskIndex, updatedMemos);
     setState(() {
       _memos = updatedMemos;
     });
