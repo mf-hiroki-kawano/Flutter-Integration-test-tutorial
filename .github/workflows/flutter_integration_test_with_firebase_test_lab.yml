@@ -18,11 +18,9 @@ jobs:
       with:
         flutter-version: '3.29.2'
 
-    - name: Clean Flutter & Gradle
+    - name: Clean Flutter
       run: |
         flutter clean
-        cd android
-        ./gradlew clean
       working-directory: counter_app
   
     - name: Install dependencies
