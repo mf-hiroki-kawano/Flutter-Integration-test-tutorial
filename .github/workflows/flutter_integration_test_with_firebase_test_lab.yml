@@ -26,6 +26,7 @@ jobs:
       run: |
         flutter build apk --debug
         flutter build apk --debug --target=integration_test/app_test.dart
+      working-directory: counter_app
 
     - name: Decode service account
       run: echo "${{ secrets.GOOGLE_APPLICATION_CREDENTIALS_JSON }}" | base64 -d > ${HOME}/gcloud-key.json
