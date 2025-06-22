@@ -24,8 +24,8 @@ jobs:
 
     - name: Build APK
       run: |
-        flutter build apk --debug
-        flutter build apk --debug --target=integration_test/app_test.dart
+        flutter build apk --debug -v
+        flutter build apk --debug --tzarget=integration_test/app_test.dart -v
       working-directory: counter_app
 
     - name: Decode service account
