@@ -21,6 +21,7 @@ jobs:
     - name: Clean Flutter & Gradle
       run: |
         flutter clean
+        cd android
         ./gradlew clean
       working-directory: counter_app
   
