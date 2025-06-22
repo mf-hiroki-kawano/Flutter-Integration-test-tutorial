@@ -20,6 +20,7 @@ jobs:
 
     - name: Install dependencies
       run: flutter pub get
+      working-directory: counter_app
 
     - name: Build APK
       run: |
@@ -45,6 +46,7 @@ jobs:
           --device model=Pixel2,version=30,locale=en,orientation=portrait \
           --timeout 5m \
           --results-bucket=gs://test-lab-${{ secrets.GCLOUD_PROJECT_ID }}
+      working-directory: counter_app
 
     - name: Upload results (optional)
       run: echo "See Firebase Console for detailed test results"
