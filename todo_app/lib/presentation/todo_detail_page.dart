@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:todo_app/memo_repository.dart';
+import 'package:todo_app/domain/memo_repository.dart';
 
 class TodoDetailPage extends StatefulWidget {
   final int taskIndex;
@@ -35,17 +35,25 @@ class _TodoDetailPageState extends State<TodoDetailPage> {
   }
 
   Future<void> _loadMemos() async {
-    final memos = await widget.memoRepository.loadMemos(widget.taskIndex);
-    setState(() {
-      _memos = memos..sort((a, b) => b.timestamp.compareTo(a.timestamp));
-    });
+    try {
+      final memos = await widget.memoRepository.loadMemos(widget.taskIndex);
+      setState(() {
+        _memos = memos..sort((a, b) => b.timestamp.compareTo(a.timestamp));
+      });
+    } catch (e) {
+      setState(() {
+        _memos = [];
+      });
+    }
   }
 
   Future<void> _saveMemo() async {
-    if (_memoController.text.isEmpty) return;
+    if (_memoController.text.trim().isEmpty) return;
     final newMemo = Memo(text: _memoController.text, timestamp: DateTime.now());
     final updatedMemos = [..._memos, newMemo];
-    await widget.memoRepository.saveMemos(widget.taskIndex, updatedMemos);
+    try {
+      await widget.memoRepository.saveMemos(widget.taskIndex, updatedMemos);
+    } catch (_) {}
     setState(() {
       _memos = updatedMemos..sort((a, b) => b.timestamp.compareTo(a.timestamp));
     });

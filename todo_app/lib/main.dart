@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'todo_detail_page.dart';
+import 'presentation/todo_detail_page.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'task_index_manager.dart';
-import 'memo_repository.dart';
+import 'domain/task_index_manager.dart';
+import 'domain/memo_repository.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -44,7 +44,7 @@ class _TodoListPageState extends State<TodoListPage> {
   final MemoRepository _memoRepository = SharedPreferencesMemoRepository();
 
   Future<void> _addTodoItem(String task) async {
-    if (task.isNotEmpty) {
+    if (task.trim().isNotEmpty) {
       int index = await _indexManager.assignIndexForTask(task);
       setState(() {
         _todoList.add({'name': task, 'index': index});
