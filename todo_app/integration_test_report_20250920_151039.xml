@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites>
+  <testsuite errors="1" failures="0" tests="7" skipped="0" name=".Users.mforce0008.hirata.OKR.Flutter_Integration_test_tutorial.todo_app.integration_test.app" timestamp="2025-09-20T06:10:39">
+    <properties>
+      <property name="platform" value="vm"/>
+    </properties>
+    <testcase classname=".Users.mforce0008.hirata.OKR.Flutter_Integration_test_tutorial.todo_app.integration_test.app" name="正常系 タスク一覧画面の初期表示確認" time="0.666"/>
+    <testcase classname=".Users.mforce0008.hirata.OKR.Flutter_Integration_test_tutorial.todo_app.integration_test.app" name="正常系 タスクの追加" time="2.126"/>
+    <testcase classname=".Users.mforce0008.hirata.OKR.Flutter_Integration_test_tutorial.todo_app.integration_test.app" name="正常系 タスク詳細画面への遷移確認" time="1.989"/>
+    <testcase classname=".Users.mforce0008.hirata.OKR.Flutter_Integration_test_tutorial.todo_app.integration_test.app" name="正常系 メモの追加" time="3.073"/>
+    <testcase classname=".Users.mforce0008.hirata.OKR.Flutter_Integration_test_tutorial.todo_app.integration_test.app" name="正常系 タスクの削除" time="2.442"/>
+    <testcase classname=".Users.mforce0008.hirata.OKR.Flutter_Integration_test_tutorial.todo_app.integration_test.app" name="正常系 error test case" time="3.203">
+      <error message="1 error, see stacktrace for details">Error:
+
+Test failed. See exception logs above.
+The test description was: error test case</error>
+      <system-out>══╡ EXCEPTION CAUGHT BY FLUTTER TEST FRAMEWORK ╞════════════════════════════════════════════════════
+The following TestFailure was thrown running a test:
+Expected: no matching candidates
+  Actual: _TextWidgetFinder:&lt;Found 1 widget with text "テストメモ1": [
+            Text("テストメモ1", dependencies: [DefaultSelectionStyle, DefaultTextStyle, MediaQuery]),
+          ]>
+   Which: means one was found but none were expected
+
+When the exception was thrown, this was the stack:
+#4      main.&lt;anonymous closure>.&lt;anonymous closure> (file:///Users/mforce0008/hirata/OKR/Flutter-Integration-test-tutorial/todo_app/integration_test/app_test.dart:139:7)
+&lt;asynchronous suspension>
+#5      testWidgets.&lt;anonymous closure>.&lt;anonymous closure> (package:flutter_test/src/widget_tester.dart:193:15)
+&lt;asynchronous suspension>
+#6      TestWidgetsFlutterBinding._runTestBody (package:flutter_test/src/binding.dart:1064:5)
+&lt;asynchronous suspension>
+&lt;asynchronous suspension>
+(elided one frame from package:stack_trace)
+
+This was caught by the test expectation on the following line:
+  file:///Users/mforce0008/hirata/OKR/Flutter-Integration-test-tutorial/todo_app/integration_test/app_test.dart line 139
+The test description was:
+  error test case
+════════════════════════════════════════════════════════════════════════════════════════════════════</system-out>
+    </testcase>
+    <testcase classname=".Users.mforce0008.hirata.OKR.Flutter_Integration_test_tutorial.todo_app.integration_test.app" name="正常系 skip test case" time="0.00"/>
+  </testsuite>
+</testsuites>

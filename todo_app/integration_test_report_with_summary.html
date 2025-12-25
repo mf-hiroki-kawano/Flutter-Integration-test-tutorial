@@ -1,0 +1,123 @@
+
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<title>20250920_151039</title>
+<style>
+body { font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica, Arial, 'Hiragino Kaku Gothic ProN', 'Noto Sans JP', 'Yu Gothic', Meiryo, sans-serif; margin: 0; background: #fafafa; color: #222; }
+header { background: #007acc; color: #fff; padding: 12px 16px; }
+main { padding: 16px; }
+.container { max-width: 1100px; margin: 0 auto; }
+.cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px; margin: 12px 0 20px; }
+.card { background: #fff; border: 1px solid #e5e7eb; border-radius: 8px; padding: 12px; box-shadow: 0 1px 2px rgba(0,0,0,0.04); }
+.card h3 { margin: 6px 0 10px; font-size: 20px; color: #374151; }
+.card .desc { font-size: 16px; color: #374151; line-height: 1.6; }
+.card .result { font-size: 28px; font-weight: 700; margin-top: 6px; }
+.card .muted { color: #6b7280; font-size: 12px; }
+.card .good { color: #059669; }
+.card .warn { color: #d97706; }
+.card .bad { color: #dc2626; }
+.summary { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 8px; margin-top: 8px; }
+.summary .pill { background: #f3f4f6; border-radius: 999px; padding: 8px 10px; font-size: 13px; text-align: center; }
+.table { width: 100%; border-collapse: collapse; background: #fff; border: 1px solid #e5e7eb; overflow: hidden; border-radius: 8px; table-layout: fixed; }
+.table th, .table td { padding: 8px 10px; border-bottom: 1px solid #e5e7eb; word-break: break-word; }
+.table th { background: #f9fafb; text-align: left; font-weight: 600; color: #374151; }
+.table td { vertical-align: top; }
+/* Column widths: 1)種別 2)ケース 3)時間 4)結果 5)エラーログ */
+.table th:nth-child(1), .table td:nth-child(1) { width: 16%; }
+.table th:nth-child(2), .table td:nth-child(2) { width: 28%; }
+.table th:nth-child(3), .table td:nth-child(3) { width: 12%; }
+.table th:nth-child(4), .table td:nth-child(4) { width: 12%; }
+.table th:nth-child(5), .table td:nth-child(5) { width: 32%; }
+.table tr:last-child td { border-bottom: none; }
+.right { text-align: right; }
+.center { text-align: center; }
+.passed { color: #065f46; }
+.failed { color: #b91c1c; }
+.skipped { color: #92400e; }
+.row-failed { background: #fff1f2; }
+.footer { color: #6b7280; font-size: 12px; margin-top: 12px; text-align: right; }
+.logs summary { cursor: pointer; color: #2563eb; }
+.logs { margin-top: 6px; max-width: 100%; }
+.logs pre { background: #1e1e1e; color: #cbd5e1; padding: 8px; border-radius: 6px; overflow-x: auto; overflow-y: auto; max-width: 100%; max-height: 260px; white-space: pre; }
+.pie { display: grid; grid-template-columns: auto; justify-items: center; gap: 6px; }
+.pie-chart { display: block; width: 180px; height: 180px; }
+.legend { display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 6px; margin-top: 4px; }
+.legend-item { font-size: 13px; color: #374151; }
+.legend-item .key { display: inline-block; width: 12px; height: 12px; border-radius: 2px; margin-right: 6px; vertical-align: middle; }
+/* Stack for the first two summary cards */
+.card-stack { display: flex; flex-direction: column; gap: 12px; }
+</style>
+</head>
+<body>
+<header>
+  <div class='container'>
+    <h1>テストレポート:20250920_151039</h1>
+    <div class='muted'>生成時刻: 2025-12-23 21:21:04</div>
+  </div>
+</header>
+<main>
+  <div class='container'>
+    <div class='cards'>
+      <div class='card-stack'>
+        <div class='card'>
+          <h3>総実行時間</h3>
+          <div class='desc'>各テストケースの合計</div>
+          <div class='result'>13.499 秒</div>
+        </div>
+        <div class='card'>
+          <h3>成功率</h3>
+          <div class='desc'>成功 5 / 実行数 6</div>
+          <div class='result warn'>83.33%</div>
+        </div>
+      </div>
+      
+      <div class='card'>
+        <h3>内訳グラフ</h3>
+        <div class='pie'><svg class='pie-chart' viewBox='0 0 200 200' width='200' height='200'><path d='M 100 100 L 100.000 10.000 A 90 90 0 1 1 12.256 120.027 Z' fill='#065f46'></path><path d='M 100 100 L 12.256 120.027 A 90 90 0 0 1 29.635 43.886 Z' fill='#b91c1c'></path><path d='M 100 100 L 29.635 43.886 A 90 90 0 0 1 100.000 10.000 Z' fill='#92400e'></path></svg><div class='legend'><div class='legend-item'><span class='key' style='background:#6b7280'></span>総数: 7</div><div class='legend-item'><span class='key' style='background:#065f46'></span>成功: 5</div><div class='legend-item'><span class='key' style='background:#b91c1c'></span>失敗: 1</div><div class='legend-item'><span class='key' style='background:#92400e'></span>スキップ: 1</div></div></div>
+      </div>
+    </div>
+
+    <table class='table'>
+      <thead>
+        <tr>
+          <th>テスト種別</th>
+          <th>テストケース</th>
+          <th>時間</th>
+          <th>結果</th>
+          <th>エラーログ</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class='row-passed'><td>正常系</td><td>タスク一覧画面の初期表示確認</td><td>0.666 s</td><td class='passed'>Passed</td><td>-</td></tr><tr class='row-passed'><td>正常系</td><td>タスクの追加</td><td>2.126 s</td><td class='passed'>Passed</td><td>-</td></tr><tr class='row-passed'><td>正常系</td><td>タスク詳細画面への遷移確認</td><td>1.989 s</td><td class='passed'>Passed</td><td>-</td></tr><tr class='row-passed'><td>正常系</td><td>メモの追加</td><td>3.073 s</td><td class='passed'>Passed</td><td>-</td></tr><tr class='row-passed'><td>正常系</td><td>タスクの削除</td><td>2.442 s</td><td class='passed'>Passed</td><td>-</td></tr><tr class='row-failed'><td>正常系</td><td>error test case</td><td>3.203 s</td><td class='failed'>Failed</td><td>1 error, see stacktrace for details<br><details class="logs"><summary>ログを表示</summary><div><b>Stdout</b></div><pre>══╡ EXCEPTION CAUGHT BY FLUTTER TEST FRAMEWORK ╞════════════════════════════════════════════════════
+The following TestFailure was thrown running a test:
+Expected: no matching candidates
+  Actual: _TextWidgetFinder:&lt;Found 1 widget with text &quot;テストメモ1&quot;: [
+            Text(&quot;テストメモ1&quot;, dependencies: [DefaultSelectionStyle, DefaultTextStyle, MediaQuery]),
+          ]&gt;
+   Which: means one was found but none were expected
+
+When the exception was thrown, this was the stack:
+#4      main.&lt;anonymous closure&gt;.&lt;anonymous closure&gt; (file:///Users/mforce0008/hirata/OKR/Flutter-Integration-test-tutorial/todo_app/integration_test/app_test.dart:139:7)
+&lt;asynchronous suspension&gt;
+#5      testWidgets.&lt;anonymous closure&gt;.&lt;anonymous closure&gt; (package:flutter_test/src/widget_tester.dart:193:15)
+&lt;asynchronous suspension&gt;
+#6      TestWidgetsFlutterBinding._runTestBody (package:flutter_test/src/binding.dart:1064:5)
+&lt;asynchronous suspension&gt;
+&lt;asynchronous suspension&gt;
+(elided one frame from package:stack_trace)
+
+This was caught by the test expectation on the following line:
+  file:///Users/mforce0008/hirata/OKR/Flutter-Integration-test-tutorial/todo_app/integration_test/app_test.dart line 139
+The test description was:
+  error test case
+════════════════════════════════════════════════════════════════════════════════════════════════════</pre></details></td></tr><tr class='row-skipped'><td>正常系</td><td>skip test case</td><td>0.000 s</td><td class='skipped'>Skipped</td><td>-</td></tr>
+      </tbody>
+    </table>
+
+    <div class='footer'>Generated from JUnit XML</div>
+  </div>
+</main>
+</body>
+</html>

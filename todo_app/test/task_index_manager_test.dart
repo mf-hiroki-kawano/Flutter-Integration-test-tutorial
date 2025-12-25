@@ -1,17 +1,18 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:todo_app/domain/task_index_manager.dart';
+
 import 'setup.dart';
+
+final TaskIndexManager manager = TaskIndexManager();
 
 void main() {
   group('TaskIndexManager Tests', () {
-    late TaskIndexManager manager;
-
     setUpAll(() async {
       await setupTestEnvironment();
     });
 
     setUp(() {
-      manager = TaskIndexManager();
+      // manager = TaskIndexManager();
     });
 
     tearDown(() async {
